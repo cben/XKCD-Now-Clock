@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <head>
-    <title>XKCD Now Clock</title>
+    <title>XKCD Then Clock</title>
     <link rel="stylesheet" href="style.css" type="text/css" media="screen"/>
 </head>
 <body>
-    <h1>XKCD Now Clock</h1>
+    <h1>XKCD Now (or should I say "then"?) Clock</h1>
 
-    <p>This is a pure javascript, real-time, client side version of <a href="http://xkcd.com/now/" target="_blank">http://xkcd.com/now/</a>.
+    <p>This is a pure javascript, client side version of <a href="http://xkcd.com/now/" target="_blank">http://xkcd.com/now/</a>.
         <br/>
-        Inspired by <a href="https://news.ycombinator.com/item?id=7384025" target="_blank">this thread</a> on hacker news
+        Forked by cben for permalinkable fixed time, from RodEsp's <a href="https://github.com/RodEsp/XKCD-Now-Clock">real-time version</a>, inspired by <a href="https://news.ycombinator.com/item?id=7384025" target="_blank">this thread</a> on hacker news
         and <a href="https://github.com/meandavejustice/xkcd-now" target="_blank">this project</a> by Dave Justice.
         <br/>
-        You can checkout the source <a href="https://github.com/RodEsp/xkcd-now-clock" target="_blank">here</a>.
+        You can checkout the source <a href="https://github.com/cben/XKCD-Now-Clock" target="_blank">here</a>.
     </p>
 
     <div id="clock">
-        <div id="timelines" style="display:none;"></div>
+        <div id="timelines" style="display:block;"></div>
         <div id="world"></div>
         <div id="worldTwo" style="display:none;"></div>
     </div>
 
-    <button id="toggleTimeLines" onclick="toggleTimeLines()">Toggle Time Lines</button>
-    <button id="toggleWorldTwo" onclick="toggleWorldTwo()">Toggle Scale Accurate Map</button>
+    <div>
+        <input id="t" type="text" size="40" style="font-size: 200%" value="2025-12-31T18:00" oninput="updateFromField()"/>
+    </div>
 
+    <div>
+        <button id="toggleTimeLines" onclick="toggleTimeLines()">Toggle Time Lines</button>
+        <button id="toggleWorldTwo" onclick="toggleWorldTwo()">Toggle Scale Accurate Map (but see disclaimer)</button>
+    </div>
+
+    
     <p id="disclaimer">
         <span>DISCLAIMER:</span><br/>
         The clock uses UTC and the map's orientation is based on the Greenwich Meridian (roughly England). Therefore England's orientation will always
-        show the correct time but due to scaling issues and things like Daylight Saving time it might be off for other locations.
+        show the correct time but due to scaling issues and things like Daylight Saving time it <b>WILL BE OFF</b> for other locations.
+    </p>
+    <p>
+        As <a href="https://www.explainxkcd.com/wiki/index.php/1335:_Now">Explain XKCD</a> says, Randall's original map is <emph>intentionally distorted</emph>
+        to account for time zones and DST as of Feb 2014.  Brilliant!  But it has not been maintained in sync with winters/summers and political changes since, so is <b>NOT accurate</b> now.
     </p>
 
     <script type="text/javascript" src="main.js"></script>

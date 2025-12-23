@@ -4,22 +4,29 @@ var timelines = document.querySelector("#timelines");
 var rotationAngle = 360 / (60 * 60 * 24); // 360 degrees divided by seconds in a day
 var prefixes = ['webkitTransform', 'MozTransform', 'msTransform', 'OTransform', 'transform'];
 
-function updateMap() {
-    var date = new Date();
-    var rotationMultiplier = (date.getUTCHours() * 60 * 60) + (date.getUTCMinutes() * 60) + date.getUTCSeconds(); //Seconds since the start of the day.
-    var rotationString = (rotationAngle * rotationMultiplier) + 180;
-    var rotString = 'rotate(' + rotationString + 'deg)';
+function updateMap(date) {
+    const rotationMultiplier = (date.getUTCHours() * 60 * 60) + (date.getUTCMinutes() * 60) + date.getUTCSeconds(); //Seconds since the start of the day.
+    const rotationString = (rotationAngle * rotationMultiplier) + 180;
+    const rotString = 'rotate(' + rotationString + 'deg)';
     prefixes.forEach(function (el) {
         world.style[el] = rotString;
         worldTwo.style[el] = rotString;
     });
 }
 
-setInterval(function () {
-    updateMap();
-}, 1000);
+function updateFromField() {
+    const text = document.getElementById('t').value;
+    location.hash = text.replaceAll(' ', '_');
+    updateMap(new Date(text));
+}
 
-updateMap();
+var text = location.hash.replace(/^#/, '').replaceAll('_', ' ');
+if (text) {
+    document.getElementById('t').value = text;
+} else {
+    document.getElementById('t').value = new Date().toString();
+}
+updateFromField();
 
 function toggleTimeLines() {
     if (timelines.style["display"] === "none") {
